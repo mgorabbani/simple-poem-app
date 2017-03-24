@@ -9,7 +9,7 @@
   "primaryColor": "#0D8F4F",
   "icon": "./assets/icons/app.png",
   "androidStatusBar": {
-    "barStyle": "light-content",
+    "barStyle": "dark-content",
     "backgroundColor": "#0D8F4F"
   },
   "loading": {

@@ -6,7 +6,7 @@ import { StackNavigator } from 'react-navigation';
 import { MaterialIcons } from '@expo/vector-icons';
 
 
-export default class List extends React.Component {
+export default class About extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -14,12 +14,16 @@ export default class List extends React.Component {
             text:`I wanna ফাক you\nFuck you so much!`
         }
     }
+  //    static navigationOptions = {
+   
+  // }
+   
 
   render() {
     return (
       <View style={styles.container}>
          
-      <Text>Hello Favorite tor heda!</Text>
+      <Text>Hello About tor heda!</Text>
             
       </View>
     );
@@ -34,3 +38,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+   About.navigationOptions = {
+      headerMode:'screen'
+   }

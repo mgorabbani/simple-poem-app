@@ -19,14 +19,6 @@ export default class Root extends React.Component {
     this.setState({ modalVisible: visible });
   }
 
-  static navigationOptions = {
-    tabBar: {
-      // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-      icon: ({ tintColor }) => (
-        <Entypo name="list" size={32} color={tintColor} />
-      ),
-    },
-  }
   render() {
     return (
       <View style={styles.container}>
@@ -79,7 +71,7 @@ export default class Root extends React.Component {
 
         <View style={{ borderTopColor:'#d9d9d9',borderTopWidth: 15,padding:20, backgroundColor:'#fff'}}>
           <Text style={{ color: '#0D8F4F' }}>Other</Text>
-          <TouchableWithoutFeedback onPress={() => this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })} >
+          <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('about')} >
             <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
               <View style={{ flexDirection: 'row' }}>
                 <Entypo name="info" size={32} color='#0D8F4F' />
@@ -93,7 +85,7 @@ export default class Root extends React.Component {
                <Ionicons name="ios-arrow-forward-outline" size={32} color='#0D8F4F' />
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })} >
+          <TouchableWithoutFeedback onPress={()=> alert("Holly shit")} >
             <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
               <View style={{ flexDirection: 'row' }}>
                 <Entypo name="chat" size={32} color='#0D8F4F' />
