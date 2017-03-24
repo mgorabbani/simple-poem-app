@@ -1,87 +1,113 @@
 import Expo from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View,TouchableWithoutFeedback,Switch ,Picker} from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Switch, Picker, Modal, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo,Octicons,Ionicons } from '@expo/vector-icons';
 export default class Root extends React.Component {
-  
+
   constructor(props) {
     super(props)
     this.state = {
-      falseSwitchIsOn:false,
+      falseSwitchIsOn: false,
       size: 12,
-      animated:true,
-      translucent:false
+      modalVisible: false
     }
+
+  }
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
 
   static navigationOptions = {
     tabBar: {
       // Note: By default the icon is only shown on iOS. Search the showIcon option below.
       icon: ({ tintColor }) => (
-         <Entypo name="list" size={32} color={tintColor} />
+        <Entypo name="list" size={32} color={tintColor} />
       ),
     },
   }
   render() {
     return (
       <View style={styles.container}>
-         
-        <View style={{height:50,backgroundColor:'#0D8F4F'}}>
-          <View style={{marginTop:10, alignItems:'center'}}>
-            <Text style={{fontSize:20,color:'#fff'}}>
-              কবিতা সমগ্র
-            </Text>
-          </View>
-        </View>
-         <View style={{padding:10}}>
-            <Text style={{color:'#0D8F4F'}}>Preference and Settings</Text>
-            
+        <View style={{ padding: 20 ,backgroundColor:'#fff'}}>
+          <Text style={{ color: '#0D8F4F' }}>Preference and Settings</Text>
 
 
 
-<TouchableWithoutFeedback onPress={()=> this.setState({falseSwitchIsOn: !this.state.falseSwitchIsOn}) } >
-        <View style={{ alignItems:'center', paddingTop:20,paddingBottom:20, flexDirection:'row', borderBottomWidth:1, borderColor:'#f7f7f7' }}>
-           <Entypo name="list" size={32} color='#0D8F4F' />
-           <View style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'stretch' }}>
-                <View style={{ flexDirection:'column', alignItems:'stretch' }}>
-                  <Text style={{ marginLeft:15, fontWeight:'600' }}>Night Mode</Text>
-                  <Text style={{ fontWeight:'400', color:'#333', marginLeft:15 }}>Text readibility at night</Text>
+
+          <TouchableWithoutFeedback onPress={() => this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })} >
+            <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Entypo name="moon" size={32} color='#0D8F4F' />
+                <View>
+                  <View style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+                    <Text style={{ marginLeft: 15, fontSize:16 }}>Night Mode</Text>
+                    <Text style={{ fontWeight: '400', color: '#696969',fontSize:14,  marginLeft: 15 }}>Text readibility at night</Text>
+                  </View>
                 </View>
+              </View>
 
-                <Switch
-                onValueChange={(value) => this.setState({falseSwitchIsOn: value})}
-                style={{ alignSelf:'flex-end' }}
+              <Switch
+                onValueChange={(value) => this.setState({ falseSwitchIsOn: value })}
+                style={{ alignItems: 'flex-end' }}
                 value={this.state.falseSwitchIsOn} />
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-<TouchableWithoutFeedback onPress={()=> this.setState({falseSwitchIsOn: !this.state.falseSwitchIsOn}) } >
-        <View style={{ alignItems:'center', paddingTop:20,paddingBottom:20, flexDirection:'row', borderBottomWidth:1, borderColor:'#f7f7f7' }}>
-           <Entypo name="list" size={26} color='#0D8F4F' />
-           <View style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'stretch' }}>
-                <View style={{ flexDirection:'column', alignItems:'stretch' }}>
-                  <Text style={{ marginLeft:15, fontWeight:'600' }}>Font Size</Text>
-                  <Text style={{ fontWeight:'400', color:'#333', marginLeft:15 }}>Increase or Decrease Font Size</Text>
+            </View>
+          </TouchableWithoutFeedback>
+
+          <TouchableWithoutFeedback onPress={() => this.setModalVisible(true)} >
+            <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Octicons name="text-size" size={32} color='#0D8F4F' />
+                <View>
+                  <View style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+                    <Text style={{ marginLeft: 15, fontSize:18  }}>Font Size</Text>
+                    <Text style={{ fontWeight: '400', color: '#696969',fontSize:14 , marginLeft: 15 }}>Text readibility at night</Text>
+                  </View>
                 </View>
-
-                 <Picker
-                 mode='dialog'
- style={{  alignItems:'flex-end' }}
-                  selectedValue={this.state.size}
-                  onValueChange={(val) => this.setState({size: val})}>
-                  <Picker.Item label="Small" value="12" />
-                  <Picker.Item label="Big" value="15" />
-                   <Picker.Item label="Huge" value="18" />
-                </Picker>
-
-
-          </View>
+              </View>
+              <View><Picker style={{ width: 100, padding: 10,color:'#0D8F4F', backgroundColor: '#fff', left: 50 }} mode='dialog'
+                selectedValue={this.state.size}
+                onValueChange={(lang) => this.setState({ size: lang })}>
+                <Picker.Item label="13" value="13" />
+                <Picker.Item label="15" value="15" />
+                <Picker.Item label="17" value="17" />
+              </Picker></View>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </TouchableWithoutFeedback>
 
-         </View>
-        
+        <View style={{ borderTopColor:'#d9d9d9',borderTopWidth: 15,padding:20, backgroundColor:'#fff'}}>
+          <Text style={{ color: '#0D8F4F' }}>Other</Text>
+          <TouchableWithoutFeedback onPress={() => this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })} >
+            <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Entypo name="info" size={32} color='#0D8F4F' />
+                <View>
+                  <View style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+                    <Text style={{ marginLeft: 15, fontSize:18 }}>About Apps & Privacy Policy</Text>
+                  </View>
+                </View>
+              </View>
+
+               <Ionicons name="ios-arrow-forward-outline" size={32} color='#0D8F4F' />
+            </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() => this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })} >
+            <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Entypo name="chat" size={32} color='#0D8F4F' />
+                <View>
+                  <View style={{ flexDirection: 'column', alignItems: 'stretch' }}>
+                    <Text style={{ marginLeft: 15, fontSize:18}}>Contact with us</Text>
+                  </View>
+                </View>
+              </View>
+
+               <Ionicons name="ios-arrow-forward-outline" size={32} color='#0D8F4F' />
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
       </View>
     );
   }
