@@ -1,0 +1,25 @@
+{
+  "name": "helal-hafiz",
+  "description": "An empty new project",
+  "slug": "helal-hafiz",
+  "privacy": "public",
+  "sdkVersion": "15.0.0",
+  "version": "1.0.0",
+  "orientation": "portrait",
+  "primaryColor": "#0D8F4F",
+  "icon": "./assets/icons/app.png",
+  "androidStatusBar": {
+    "barStyle": "light-content",
+    "backgroundColor": "#EBE834"
+  },
+  "loading": {
+    "icon": "./assets/icons/loading.png",
+    "hideExponentText": false
+  },
+  "packagerOpts": {
+    "assetExts": ["ttf", "mp4"]
+  },
+  "ios": {
+    "supportsTablet": true
+  }
+}
