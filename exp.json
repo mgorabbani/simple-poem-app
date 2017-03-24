@@ -10,7 +10,7 @@
   "icon": "./assets/icons/app.png",
   "androidStatusBar": {
     "barStyle": "light-content",
-    "backgroundColor": "#EBE834"
+    "backgroundColor": "#0D8F4F"
   },
   "loading": {
     "icon": "./assets/icons/loading.png",

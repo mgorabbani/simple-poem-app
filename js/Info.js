@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
-import { StyleSheet, Text,StatusBar, View,TouchableWithoutFeedback,Switch ,Picker} from 'react-native';
+import { StyleSheet, Text, View,TouchableWithoutFeedback,Switch ,Picker} from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Entypo } from '@expo/vector-icons';
 export default class Root extends React.Component {
@@ -28,7 +28,7 @@ export default class Root extends React.Component {
       <View style={styles.container}>
          
         <View style={{height:50,backgroundColor:'#0D8F4F'}}>
-          <View style={{marginTop:20, alignItems:'center'}}>
+          <View style={{marginTop:10, alignItems:'center'}}>
             <Text style={{fontSize:20,color:'#fff'}}>
               কবিতা সমগ্র
             </Text>
@@ -51,7 +51,7 @@ export default class Root extends React.Component {
 
                 <Switch
                 onValueChange={(value) => this.setState({falseSwitchIsOn: value})}
-                style={{ alignItems:'flex-end' }}
+                style={{ alignSelf:'flex-end' }}
                 value={this.state.falseSwitchIsOn} />
           </View>
         </View>

@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View,Button,ListItem,StatusBar } from 'react-native';
+import { StyleSheet, Text, View,Button,ListItem } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import { MaterialIcons } from '@expo/vector-icons';

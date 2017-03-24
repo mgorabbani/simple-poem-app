@@ -32,7 +32,7 @@ headerMode: 'screen',
 
 tabBarOptions: {
    indicatorStyle:{backgroundColor:'#fff'},
-  inactiveTintColor: '#67daa2',
+  inactiveTintColor: '#D4FCEA',
   showLabel: false,
   showIcon:true,
   activeTintColor: 'white',
@@ -40,8 +40,7 @@ tabBarOptions: {
     fontSize: 12,
   },
   style: {
-    backgroundColor: '#0D8F4F',
-    marginTop:26
+    backgroundColor: '#12CC7B'
   },
 }
 
