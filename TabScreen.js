@@ -43,8 +43,7 @@ const RouteConfigs = {
 }
 
 const TabNavigatorConfig = {
-swipeEnabled: false,
-lazyLoad: true,
+
 tabBarOptions: {
    indicatorStyle:{backgroundColor:'#fff'},
   inactiveTintColor: '#D4FCEA',
