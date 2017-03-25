@@ -4,7 +4,7 @@ let index = 0
 class Store {
 
   @observable nightMode = false;
-  @observable size = 1;
+  @observable size = 13;
   toggleNightMode () {
     this.nightMode = !this.nightMode;
   }

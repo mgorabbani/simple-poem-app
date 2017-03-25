@@ -22,10 +22,11 @@ export default class Root extends React.Component {
     console.log("Info page",this.props.screenProps.size)
     
   }
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
-
+toggleNightMode () {
+    this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })
+    this.props.screenProps.toggleNightMode(this.state.falseSwitchIsOn)
+    console.log("dekh",this.state.falseSwitchIsOn)
+}
   render() {
     return (
       <View style={styles.container}>
@@ -35,7 +36,7 @@ export default class Root extends React.Component {
 
 
 
-          <TouchableWithoutFeedback onPress={() => this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })} >
+          <TouchableWithoutFeedback onPress={() => this.toggleNightMode()} >
             <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
               <View style={{ flexDirection: 'row' }}>
                 <Entypo name="moon" size={32} color='#0D8F4F' />
@@ -48,7 +49,7 @@ export default class Root extends React.Component {
               </View>
 
               <Switch
-                onValueChange={(value) => this.setState({ falseSwitchIsOn: value })}
+                onValueChange={(value) => this.toggleNightMode()}
                 style={{ alignItems: 'flex-end' }}
                 value={this.state.falseSwitchIsOn} />
             </View>
