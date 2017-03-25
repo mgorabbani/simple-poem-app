@@ -8,8 +8,9 @@
   "orientation": "portrait",
   "primaryColor": "#0D8F4F",
   "icon": "./assets/icons/app.png",
+  "androidStatusBarColor":"#FFFFFF",
   "androidStatusBar": {
-    "barStyle": "dark-content",
+    "barStyle": "light-content",
     "backgroundColor": "#0D8F4F"
   },
   "loading": {

@@ -4,7 +4,7 @@ import React from 'react';
 import { Animated,StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Button, ListView, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import poems from './Poems'
-import Animation from 'lottie-react-native';
+const Animation = Expo.DangerZone.Lottie;
 
 import { Octicons } from '@expo/vector-icons';
 export default class Single extends React.Component {
@@ -12,20 +12,32 @@ export default class Single extends React.Component {
     super(props)
     this.state = {
         size:16,
-        favourite:false
+        favourite:false,
+  progress: new Animated.Value(0)
     };
-
+      this.onPlayPress =  this._startAnimation();
   }
 
-
+  _startAnimation = () => {
+    Animated
+      .timing(this.state.progress, {
+        toValue: 1,
+        duration: 4000
+      })
+      .start(this._reverseAnimation);
+  };
 static navigationOptions =  {
-    header: ({ state, setState }) => ({
-right: (
-        <Button
-          title={state.favourite ? 'like' : 'liked!'}
-          onPress={() => setState({favourite: state.favourite ? false : true})}
-        />
-   ),
+    header: {
+right: ( <TouchableWithoutFeedback onPress={()=>this.onPlayPress()}>
+        <Animation 
+        ref={animation => { this.animation = animation; }}
+        style={{
+          width: 200,
+          height: 200,
+        }}
+        source={require('../assets/love.json')}
+      />
+      </TouchableWithoutFeedback> ),
 style: {
     backgroundColor:'#12CC7B',
 },
@@ -34,14 +46,14 @@ titleStyle: {
     color:'#fff',
     fontFamily:'CharukolaUltraLight'
 }
-    }),
+    }
   };
 
   render() {
     return (
       
             <View style={styles.container}>
-
+           
                 <View style={{ alignItems: 'center' }}>
                    
                     {
