@@ -4,8 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import TabScreen from './TabScreen'
 import About from './js/About'
 import Single from './js/Single'
-
- 
+import store from './js/Store'
 
 const App = StackNavigator({
   tab: { screen: TabScreen, navigationOptions: {
@@ -25,6 +24,10 @@ const App = StackNavigator({
     headerMode: 'screen'
 });
 
+const Main = ()=> {
+    return(
+        <App screenProps= {store}/>
+    )
+}
 
-
-Expo.registerRootComponent(App);
+Expo.registerRootComponent(Main);

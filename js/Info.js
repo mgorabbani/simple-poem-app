@@ -3,18 +3,25 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableWithoutFeedback, Switch, Picker, Modal, TouchableHighlight } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Entypo,Octicons,Ionicons } from '@expo/vector-icons';
+import {observer} from 'mobx-react/native'
+@observer
 export default class Root extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
       falseSwitchIsOn: false,
-      size: 12,
+      size: 13,
       modalVisible: false
     }
 
   }
-
+  changeFontSize(s) {
+    this.setState({ size: s })
+    this.props.screenProps.changeFontSize(s)
+    console.log("Info page",this.props.screenProps.size)
+    
+  }
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -60,8 +67,8 @@ export default class Root extends React.Component {
               </View>
               <View><Picker style={{ width: 100, padding: 10,color:'#0D8F4F', backgroundColor: '#fff', left: 50 }} mode='dialog'
                 selectedValue={this.state.size}
-                onValueChange={(lang) => this.setState({ size: lang })}>
-                <Picker.Item label="13" value="13" />
+                onValueChange={(s) => this.changeFontSize(s)}>
+                <Picker.Item label="13" value="center" />
                 <Picker.Item label="15" value="15" />
                 <Picker.Item label="17" value="17" />
               </Picker></View>
