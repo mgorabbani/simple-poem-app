@@ -48,11 +48,11 @@ export default class List extends React.Component {
 
   _renderScene(rowData) {
     return (
-    <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('single', { title: rowData.title, body: rowData.body })}>
+    <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('single', {fontLoaded:  this.state.fontLoaded, title: rowData.title, body: rowData.body })}>
       <View style={{ alignItems: 'center', paddingTop: 20, paddingBottom: 20, flexDirection: 'row', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
          {
     this.state.fontLoaded ? (
-        <Text style={{ marginLeft: 15,fontFamily:'CharukolaUltraLight' }}>{this.state.counter++} { rowData.title}</Text>
+        <Text style={{ marginLeft: 15,fontFamily:'CharukolaUltraLight',fontSize:20 }}>{this.state.counter++} { rowData.title}</Text>
          ) : null
   }
       </View>

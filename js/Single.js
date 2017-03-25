@@ -1,51 +1,59 @@
-import Expo, { Font } from 'expo';
+import Expo, {Font} from 'expo';
 import React from 'react';
-import { StyleSheet, TextInput, View, Button, ScrollView, Text } from 'react-native';
+
+import { Animated,StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Button, ListView, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-export default class List extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            size: 15,
-            height: 0,
-            fontLoaded: false,
-        }
+import poems from './Poems'
+import Animation from 'lottie-react-native';
 
-    }
+import { Octicons } from '@expo/vector-icons';
+export default class Single extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+        size:16,
+        favourite:false
+    };
 
-    async componentDidMount() {
-        await Font.loadAsync({
-            'CharukolaUltraLight': require('../assets/fonts/CharukolaUltraLight.ttf'),
-        });
-
-        this.setState({ fontLoaded: true });
-    }
-
-    render() {
-        return (
+  }
 
 
+static navigationOptions =  {
+    header: ({ state, setState }) => ({
+right: (
+        <Button
+          title={state.favourite ? 'like' : 'liked!'}
+          onPress={() => setState({favourite: state.favourite ? false : true})}
+        />
+   ),
+style: {
+    backgroundColor:'#12CC7B',
+},
+tintColor: '#fff',
+titleStyle: {
+    color:'#fff',
+    fontFamily:'CharukolaUltraLight'
+}
+    }),
+  };
 
-
-            <View>
+  render() {
+    return (
+      
+            <View style={styles.container}>
 
                 <View style={{ alignItems: 'center' }}>
-                    <Button style={{ margin: 20 }} onPress={() => {
-                        this._increaseFont()
-                    }} title="Biggner" />
-                    <Button style={{ margin: 20 }} onPress={() => {
-                        this._decreaseFont()
-                    }} title="Smaller" />
+                   
                     {
-                        this.state.fontLoaded ? (
-                            <Text style={{ fontSize: 40, padding: 20 }}>{this.props.navigation.state.params.title}</Text>
+                        this.props.navigation.state.params.fontLoaded? (
+                            <Text style={{ fontSize: 40, padding: 20,fontFamily:'CharukolaUltraLight' }}>{this.props.navigation.state.params.title}</Text>
                         ) : null
                     }
                 </View>
 
-                <ScrollView style={{ height: 400 }}>
+                <ScrollView style={{ height: 400,padding:20,paddingTop:0 }}>
                     {
-                        this.state.fontLoaded ? (
+                        this.props.navigation.state.params.fontLoaded ? (
                             <TextInput
                                 editable={false}
                                 multiline={true}
@@ -54,7 +62,7 @@ export default class List extends React.Component {
                                     this.setState({ height: event.nativeEvent.contentSize.height });
                                 }}
 
-                                style={{ fontSize: this.state.size, height: Math.max(35, this.state.height) }}
+                                style={{ fontSize: this.state.size,lineHeight:34,textAlign:'center', fontFamily:'CharukolaUltraLight',height: Math.max(35, this.state.height) }}
                                 value={this.props.navigation.state.params.body}
 
                             />
@@ -63,28 +71,17 @@ export default class List extends React.Component {
                 </ScrollView>
 
             </View>
-
-        );
-    }
-
-    _increaseFont() {
-        this.setState({
-            size: this.state.size + 2
-        })
-    }
-    _decreaseFont() {
-        this.setState({
-            size: this.state.size - 2
-        })
-    }
+    );
+  }
 }
 
+  
+
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 20,
-        flex: 1,
-        backgroundColor: '#fff',
-
-
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
 });
+
+
