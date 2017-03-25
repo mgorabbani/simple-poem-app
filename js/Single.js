@@ -1,49 +1,40 @@
 import Expo, { Font } from 'expo';
 import React from 'react';
 
-import { Animated, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Button, ListView, ScrollView } from 'react-native';
+import { Animated, StyleSheet, Text, TextInput, TouchableOpacity, View, Button, ListView, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import poems from './Poems'
 import { observer } from 'mobx-react/native'
-const Animation = Expo.DangerZone.Lottie;
 
-import { Octicons } from '@expo/vector-icons';
+
+import { Ionicons } from '@expo/vector-icons';
 
 @observer
 export default class Single extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            favourite: false,
-            progress: new Animated.Value(0),
+            love: false,
             color: !this.props.screenProps.nightMode ? '#282C34' : '#fff',
             bgColor: this.props.screenProps.nightMode ? '#282C34' : '#fff',
             height: 300,
-            size: Number(this.props.screenProps.size)
+            size: Number(this.props.screenProps.size),
+            icon: false,
+
         };
 
     }
-
-    _startAnimation = () => {
-        Animated
-            .timing(this.state.progress, {
-                toValue: 1,
-                duration: 4000
-            })
-            .start(this._reverseAnimation);
-    };
+onLovePress () {
+    this.setState({ love: !this.state.love })
+    this.props.screenProps.onLovePress()
+    console.log("dekh",this.state.love)
+}
+   
     static navigationOptions = {
-        header: {
-            right: (<TouchableWithoutFeedback onPress={() => this.onPlayPress()}>
-                <Animation
-                    ref={animation => { this.animation = animation; }}
-                    style={{
-                        width: 200,
-                        height: 200,
-                    }}
-                    source={require('../assets/love.json')}
-                />
-            </TouchableWithoutFeedback>),
+       header: ({ state,setParams }) => ({
+            right: (<TouchableOpacity onPress={() => setParams({ icon: !state.params.icon})} style={{padding:20}} >
+                 <Ionicons name={!state.params.icon ? "md-heart" : "md-heart-outline"} size={35} color={!state.params.icon ? "#ff316b" : "#D4FCEA"} />
+            </TouchableOpacity>),
             style: {
                 backgroundColor: '#12CC7B',
             },
@@ -52,19 +43,19 @@ export default class Single extends React.Component {
                 color: '#fff',
                 fontFamily: 'CharukolaUltraLight'
             }
-        }
+        }),
     };
 
     render() {
         return (
 
-            <View style={{ flex: 1,backgroundColor: this.state.bgColor}}>
+            <View style={{ flex: 1, backgroundColor: this.state.bgColor }}>
 
                 <View style={{ alignItems: 'center' }}>
 
                     {
                         this.props.navigation.state.params.fontLoaded ? (
-                            <Text style={{ color:this.state.color,fontSize: 40, padding: 20, fontFamily: 'CharukolaUltraLight' }}>{this.props.screenProps.fontSize} {this.props.navigation.state.params.title}</Text>
+                            <Text style={{ color: this.state.color, fontSize: 40, padding: 20, fontFamily: 'CharukolaUltraLight' }}>{this.props.screenProps.fontSize} {this.props.navigation.state.params.title}</Text>
                         ) : null
                     }
                 </View>
@@ -95,13 +86,13 @@ export default class Single extends React.Component {
     jewelStyle = function () {
 
         return {
-            color:this.state.color,
+            color: this.state.color,
             fontSize: this.state.size,
             lineHeight: 34,
             textAlign: 'center',
             fontFamily: 'CharukolaUltraLight',
         }
     }
-    
+
 }
 

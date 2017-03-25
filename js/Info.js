@@ -24,8 +24,7 @@ export default class Root extends React.Component {
   }
 toggleNightMode () {
     this.setState({ falseSwitchIsOn: !this.state.falseSwitchIsOn })
-    this.props.screenProps.toggleNightMode(this.state.falseSwitchIsOn)
-    console.log("dekh",this.state.falseSwitchIsOn)
+    this.props.screenProps.toggleNightMode()
 }
   render() {
     return (

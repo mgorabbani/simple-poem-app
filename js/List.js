@@ -5,7 +5,6 @@ import { StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Button, Li
 import { StackNavigator } from 'react-navigation';
 import poems from './Poems'
 
-import { Octicons } from '@expo/vector-icons';
 export default class List extends React.Component {
   constructor(props) {
     super(props)

@@ -2,6 +2,7 @@ import Expo from 'expo';
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import TabScreen from './TabScreen'
+import playground from './playground'
 import About from './js/About'
 import Single from './js/Single'
 import store from './js/Store'
