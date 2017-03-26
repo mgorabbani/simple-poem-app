@@ -1,6 +1,6 @@
 import Expo from 'expo';
 import React from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Switch, Picker, Modal, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, TouchableWithoutFeedback, Switch, Picker, Modal, TouchableHighlight,Linking } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import { Entypo,Octicons,Ionicons } from '@expo/vector-icons';
 import {observer} from 'mobx-react/native'
@@ -19,7 +19,6 @@ export default class Root extends React.Component {
   changeFontSize(s) {
     this.setState({ size: s })
     this.props.screenProps.changeFontSize(s)
-    console.log("Info page",this.props.screenProps.size)
     
   }
 toggleNightMode () {
@@ -54,7 +53,7 @@ toggleNightMode () {
             </View>
           </TouchableWithoutFeedback>
 
-          <TouchableWithoutFeedback onPress={() => this.setModalVisible(true)} >
+          <TouchableWithoutFeedback>
             <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
               <View style={{ flexDirection: 'row' }}>
                 <Octicons name="text-size" size={32} color='#0D8F4F' />
@@ -92,7 +91,7 @@ toggleNightMode () {
                <Ionicons name="ios-arrow-forward-outline" size={32} color='#0D8F4F' />
             </View>
           </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={()=> alert("Holly shit")} >
+          <TouchableWithoutFeedback onPress={() => Linking.openURL("mailto:mgorabbani@gmail.com?subject=From Helal Hafiz\'s app")} >
             <View style={{ paddingTop: 20, paddingBottom: 20, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
               <View style={{ flexDirection: 'row' }}>
                 <Entypo name="chat" size={32} color='#0D8F4F' />

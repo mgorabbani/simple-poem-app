@@ -15,6 +15,16 @@ const App = StackNavigator({
   } },
   about: { screen: About,navigationOptions: {
       title: "About Apps & Privacy Policy",
+      header: {
+          style: {
+                backgroundColor: '#12CC7B',
+            },
+            tintColor: '#fff',
+            titleStyle: {
+                color: '#fff',
+                fontFamily: 'CharukolaUltraLight'
+            }
+      }
       
   } },
   single: {screen: Single,navigationOptions: {

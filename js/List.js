@@ -16,7 +16,7 @@ export default class List extends React.Component {
     };
 
   }
-   async componentDidMount() {
+   async componentWillMount() {
     await Font.loadAsync({
       'CharukolaUltraLight': require('../assets/fonts/CharukolaUltraLight.ttf'),
     });
