@@ -28,7 +28,7 @@ const App = StackNavigator({
       
   } },
   single: {screen: Single,navigationOptions: {
-      title: ({ state }) => `${state.params.title}`,
+      backTitle: null,
       
   }}
 }, {

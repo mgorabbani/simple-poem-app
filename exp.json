@@ -15,7 +15,8 @@
   },
   "loading": {
     "icon": "./assets/icons/loading.png",
-    "hideExponentText": false
+    "hideExponentText": false,
+    "backgroundColor": "#0D8F4F"
   },
   "packagerOpts": {
     "assetExts": ["ttf", "mp4"]

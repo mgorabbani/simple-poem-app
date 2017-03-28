@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Animated, StyleSheet, Text, TextInput, TouchableOpacity, View, ListView, ScrollView, Share, AsyncStorage, ToastAndroid } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import Animation from 'lottie-react-native';
 import poems from './Poems'
 import { observer } from 'mobx-react/native'
 
@@ -20,7 +21,8 @@ export default class Single extends React.Component {
             bgColor: this.props.screenProps.nightMode ? '#282C34' : '#fff',
             height: 250,
             size: Number(this.props.screenProps.size),
-            visible: false
+            visible: false,
+            progress: new Animated.Value(0),
 
 
         };
@@ -44,10 +46,14 @@ export default class Single extends React.Component {
 
     _setLove() {
         let FAVDATA ={
-            "title": this.props.navigation.state.params.title,
-            "body": this.props.navigation.state.params.body
+            title: this.props.navigation.state.params.title,
+            body: this.props.navigation.state.params.body
         };
-        console.log(FAVDATA)
+        console.log("Fucking prog",this.state.progress)
+         Animated.timing(this.state.progress, {
+            toValue: 1,
+            duration: 5000,
+            }).start();
         AsyncStorage.setItem('PoemDB', JSON.stringify(FAVDATA), () => {
             ToastAndroid.show('কবিতা প্রিয়তে রাখা হয়েছে!', ToastAndroid.SHORT);
         });
@@ -58,8 +64,15 @@ export default class Single extends React.Component {
         header: ({ state, setParams }) => ({
             right: (<View style={{ flexDirection: 'row' }}>
 
-                <TouchableOpacity onPress={state.params.setLove} style={{ padding: 20 }} >
-                    <Ionicons name={!state.params.love ? "md-heart" : "md-heart-outline"} size={35} color={!state.params.love ? "#ff316b" : "#D4FCEA"} />
+                <TouchableOpacity onPress={state.params.setLove} style={{ paddingTop: 14 }} >
+                    <Animation
+                        style={{
+                        width: 50,
+                        height: 50,
+                        }}
+                         source={require('../assets/save.json')}
+                         progress={state.progress}
+                    />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={state.params.share} style={{ padding: 20 }}>
                     <Ionicons name="md-share-alt" size={35} color="#FFFFFF" />
@@ -79,7 +92,7 @@ export default class Single extends React.Component {
     _shareMessage() {
         Share.share({
             message: this.props.navigation.state.params.body,
-            url: 'http://facebook.github.io/react-native/',
+            url: 'http://melopixel.com/apps',
             title: this.props.navigation.state.params.title
         }, {
                 dialogTitle: 'Share with Your Friends',
@@ -98,7 +111,7 @@ export default class Single extends React.Component {
 
                         {
                             this.props.navigation.state.params.fontLoaded ? (
-                                <Text style={{ color: this.state.color, fontSize: 40, paddingTop: 10, fontFamily: 'CharukolaUltraLight' }}>{this.props.screenProps.fontSize} {this.props.navigation.state.params.title}</Text>
+                                <Text style={{ color: this.state.color, fontSize: 24, paddingTop: 10, fontFamily: 'CharukolaUltraLight' }}>{this.props.screenProps.fontSize} {this.props.navigation.state.params.title}</Text>
                             ) : null
                         }
 

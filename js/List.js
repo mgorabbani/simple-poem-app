@@ -29,6 +29,7 @@ export default class List extends React.Component {
 
 
   render() {
+
     return (
       <View style={styles.container}>
         <View style={{alignItems:'center',backgroundColor:"#12CC7B",padding:10}}>
