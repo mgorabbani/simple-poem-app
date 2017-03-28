@@ -21,6 +21,7 @@ export default class List extends React.Component {
       'CharukolaUltraLight': require('../assets/fonts/CharukolaUltraLight.ttf'),
     });
 
+
     this.setState({ fontLoaded: true });
   }
 
