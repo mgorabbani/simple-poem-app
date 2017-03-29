@@ -8,7 +8,7 @@ import poems from './Poems'
 import { observer } from 'mobx-react/native'
 
 // import Share, { ShareSheet, Button } from 'react-native-share';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 
 @observer
 export default class Single extends React.Component {
@@ -45,25 +45,21 @@ export default class Single extends React.Component {
     }
 
     _setLove() {
-console.log("problem!")
+        console.log("problem!")
         v = true;
         
+        that = this;
         AsyncStorage.getItem('kobitaDB').then((data) => {
-            newData = JSON.parse(data)
-            if (v) {
-                let ds = {
-                    title: this.props.navigation.state.params.title,
-                    body: this.props.navigation.state.params.body
-                };
-                newData.push(ds)
-                AsyncStorage.setItem('kobitaDB', JSON.stringify(newData), () => {
-                    ToastAndroid.show('কবিতা প্রিয়তে রাখা হয়েছে!', ToastAndroid.SHORT);
-                });
-            } else {
-                newData = arr.filter(function (el) {
-                    return el.url !== "link 2";
-                });
-            }
+            d = JSON.parse(data)
+            newData = d.filter(function (el) {
+                return el.title !== that.props.navigation.state.params.title;
+            });
+
+            AsyncStorage.setItem('kobitaDB', JSON.stringify(newData), () => {
+                ToastAndroid.show('কবিতা প্রিয় থেকে সরানো হয়েছে!', ToastAndroid.SHORT);
+            });
+
+
             console.log("afte set data", newData)
         });
 
@@ -77,14 +73,7 @@ console.log("problem!")
             right: (<View style={{ flexDirection: 'row' }}>
 
                 <TouchableOpacity onPress={state.params.setLove} style={{ paddingTop: 14 }} >
-                    <Animation
-                        style={{
-                            width: 50,
-                            height: 50,
-                        }}
-                        source={require('../assets/save.json')}
-                        progress={state.progress}
-                    />
+                    <MaterialIcons name="delete" size={35} color="#FFFFFF" />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={state.params.share} style={{ padding: 20 }}>
                     <Ionicons name="md-share-alt" size={35} color="#FFFFFF" />

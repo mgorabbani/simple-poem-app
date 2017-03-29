@@ -29,7 +29,7 @@ export default class List extends React.Component {
 
 
   render() {
-
+{console.log("List:",this.state.dataSource)}
     return (
       <View style={styles.container}>
         <View style={{alignItems:'center',backgroundColor:"#12CC7B",padding:10}}>
@@ -48,6 +48,7 @@ export default class List extends React.Component {
   }
 
   _renderScene(rowData) {
+    
     return (
     <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('single', {fontLoaded:  this.state.fontLoaded, title: rowData.title, body: rowData.body })}>
       <View style={{ alignItems: 'center', paddingTop: 20, paddingBottom: 20, flexDirection: 'row', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>

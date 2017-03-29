@@ -5,6 +5,7 @@ import TabScreen from './TabScreen'
 import playground from './playground'
 import About from './js/About'
 import Single from './js/Single'
+import SingleFav from './js/SingleFav'
 import store from './js/Store'
 
 const App = StackNavigator({
@@ -28,6 +29,10 @@ const App = StackNavigator({
       
   } },
   single: {screen: Single,navigationOptions: {
+      backTitle: null,
+      
+  }},
+    singleFav: {screen: SingleFav,navigationOptions: {
       backTitle: null,
       
   }}

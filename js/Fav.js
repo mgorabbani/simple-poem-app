@@ -4,11 +4,11 @@ import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Button, ListView, ScrollView, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import poems from './Poems'
-
+import { observer } from 'mobx-react/native'
 import { Octicons } from '@expo/vector-icons';
 
 
-
+@observer
 export default class List extends React.Component {
 
   constructor(props) {
@@ -21,6 +21,18 @@ export default class List extends React.Component {
 
   }
 
+//  AsyncStorage.getItem('kobitaDB').then((data) => {
+//             newData = JSON.parse(data)
+//             let ds = {
+//                 title: this.props.navigation.state.params.title,
+//                 body: this.props.navigation.state.params.body
+//             };
+//             newData.push(ds)
+//             AsyncStorage.setItem('kobitaDB', JSON.stringify(newData), () => {
+//                 ToastAndroid.show('কবিতা প্রিয়তে রাখা হয়েছে!', ToastAndroid.SHORT);
+//             });
+//             console.log("afte set data", newData)
+//         });
 
   async componentWillMount() {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -29,23 +41,21 @@ export default class List extends React.Component {
       'CharukolaUltraLight': require('../assets/fonts/CharukolaUltraLight.ttf'),
     });
 
-
-    this.setState({ fontLoaded: true });
-    await AsyncStorage.getItem('PoemDB').then((data) => {
-      console.log("plain\n",data )
-      this.setState({dataSource: ds.cloneWithRows(JSON.parse(data))})
-
+    await AsyncStorage.getItem('kobitaDB').then((data) => {
+       newData = JSON.parse(data)
+      this.setState({dataSource: ds.cloneWithRows(newData)})
     });
 
-
+this.setState({ fontLoaded: true });
   }
 
 
 
   render() {
-
+ {console.log("fav:",this.state.dataSource)}
     
     return (
+     
       <View style={styles.container}>
         <View style={{ alignItems: 'center', backgroundColor: "#12CC7B", padding: 10 }}>
           {
@@ -70,7 +80,7 @@ export default class List extends React.Component {
 
     _renderScene(rowData) {
     return (
-    <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('single', {fontLoaded:  this.state.fontLoaded, title: rowData.title, body: rowData.body })}>
+    <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('singleFav', {fontLoaded:  this.state.fontLoaded, title: rowData.title, body: rowData.body })}>
       <View style={{ alignItems: 'center', paddingTop: 20, paddingBottom: 20, flexDirection: 'row', borderBottomWidth: 1, borderColor: '#f7f7f7' }}>
          {
     this.state.fontLoaded ? (

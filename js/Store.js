@@ -6,6 +6,7 @@ class Store {
   @observable nightMode = false;
   @observable size = 13;
    @observable love = true;
+   @observable favDataSet = {};
   toggleNightMode () {
     this.nightMode = !this.nightMode;
   }
