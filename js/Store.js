@@ -5,7 +5,7 @@ class Store {
 
   @observable nightMode = false;
   @observable size = 13;
-   @observable love = true;
+   @observable FavChange = false;
    @observable favDataSet = {};
   toggleNightMode () {
     this.nightMode = !this.nightMode;
@@ -14,8 +14,8 @@ class Store {
     changeFontSize (size) {
         this.size = size;
   }
-  onLovePress(bool) {
-    this.love = bool;
+  isFavChange(bool) {
+    this.FavChange = bool;
   }
 
 

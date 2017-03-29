@@ -8,6 +8,7 @@ import { observer } from 'mobx-react/native'
 import { Octicons } from '@expo/vector-icons';
 
 
+const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
 @observer
 export default class List extends React.Component {
 
@@ -19,7 +20,16 @@ export default class List extends React.Component {
       fontLoaded: false,
       isFav : false,
     };
+         AsyncStorage.getItem('kobitaDB').then((data) => {
+       newData = JSON.parse(data)
+        console.log("Favourite dataaa:",newData.length)
+        if (0 < newData.length) { 
+        
+          this.setState({dataSource: ds.cloneWithRows(newData),isFav:true})
 
+        }
+       
+    });
   }
 
 //  AsyncStorage.getItem('kobitaDB').then((data) => {
@@ -36,24 +46,18 @@ export default class List extends React.Component {
 //         });
 
   async componentWillMount() {
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-
+    
+    
+    
     await Font.loadAsync({
       'CharukolaUltraLight': require('../assets/fonts/CharukolaUltraLight.ttf'),
     });
 
-    await AsyncStorage.getItem('kobitaDB').then((data) => {
-       newData = JSON.parse(data)
-        console.log("dataaa:",newData.length)
-        if (0 < newData.length) { 
-         
-          this.setState({dataSource: ds.cloneWithRows(newData),isFav:true})
-        }
-       
-    });
+
 
 this.setState({ fontLoaded: true });
   }
+
 
 
 

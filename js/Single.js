@@ -8,7 +8,7 @@ import poems from './Poems'
 import { observer } from 'mobx-react/native'
 
 // import Share, { ShareSheet, Button } from 'react-native-share';
-import { Ionicons,MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 @observer
 export default class Single extends React.Component {
@@ -18,7 +18,7 @@ export default class Single extends React.Component {
         this.state = {
             color: !this.props.screenProps.nightMode ? '#282C34' : '#9C9C9E',
             bgColor: this.props.screenProps.nightMode ? '#282C34' : '#fff',
-            love : this.props.screenProps.love,
+            love: false,
             height: 250,
             size: Number(this.props.screenProps.size),
             visible: false,
@@ -26,72 +26,13 @@ export default class Single extends React.Component {
 
 
         };
-        if (this.state.visible) {
 
-        }
         this._shareMessage = this._shareMessage.bind(this);
         this._setLove = this._setLove.bind(this);
-
-
-
-
-
     }
 
-
-
-    componentDidMount() {
-        this.props.navigation.setParams({ share: this._shareMessage, setLove: this._setLove });
-this.checkFav()
-
-    }
-        checkFav() {
-        that = this;
-        AsyncStorage.getItem('kobitaDB').then((data) => {
-            d = JSON.parse(data)
-            newData = d.filter(function (el) {
-                return el.title == that.props.navigation.state.params.title;
-            });
-            console.log("Koto??",newData.length)
-            if(newData.length>0) {
-                this.props.navigation.setParams({icon: !state.params.icon})
-            }
-            
-        });
-
-        }
-
-    _setLove() {
-        console.log("problem!")
-        v = true;
-        AsyncStorage.getItem('kobitaDB').then((data) => {
-            newData = JSON.parse(data)
-            a = newData.filter(function (el) {
-                    return el.title == this.props.navigation.state.params.title;
-                });
-                if(a.length>0) {
-                     this.props.navigation.setParams({icon: !this.props.navigation.state.params.icon})
-                }
-           if(a.length<0) {
-                let ds = {
-                    title: this.props.navigation.state.params.title,
-                    body: this.props.navigation.state.params.body
-                };
-                newData.push(ds)
-                AsyncStorage.setItem('kobitaDB', JSON.stringify(newData), () => {
-                    ToastAndroid.show('কবিতা প্রিয়তে রাখা হয়েছে!', ToastAndroid.SHORT);
-                });
-            } 
-            console.log("afte set data", newData)
-        });
-
-
-
-
-
-    }
     static navigationOptions = {
-        
+
         header: ({ state, setParams }) => ({
             style: {
                 backgroundColor: '#12CC7B',
@@ -103,6 +44,55 @@ this.checkFav()
             }
         })
     };
+
+
+
+    componentDidMount() {
+        this.props.navigation.setParams({ share: this._shareMessage, setLove: this._setLove});
+        this.checkFav()
+
+    }
+    checkFav() {
+        that = this;
+        AsyncStorage.getItem('kobitaDB').then((data) => {
+            d = JSON.parse(data)
+            newData = d.filter(function (el) {
+                return el.title == that.props.navigation.state.params.title;
+            });
+            console.log("Koto??",  )
+            if (newData.length > 0) {
+                this.setState({ love: true })
+                this.props.screenProps.isFavChange(!this.props.screenProps.FavChange)
+            }
+
+        });
+
+    }
+
+    _setLove() {
+        that = this;
+        AsyncStorage.getItem('kobitaDB').then((data) => {
+            newData = JSON.parse(data)
+            a = newData.filter(function (el) {
+                return el.title == that.props.navigation.state.params.title;
+            });
+            if (a.length > 0) {
+                ToastAndroid.show('কবিতা প্রিয়তে ache!', ToastAndroid.SHORT);
+            } else {
+                let ds = {
+                    title: that.props.navigation.state.params.title,
+                    body: that.props.navigation.state.params.body
+                };
+                newData.push(ds)
+                AsyncStorage.setItem('kobitaDB', JSON.stringify(newData), () => {
+                    ToastAndroid.show('কবিতা প্রিয়তে রাখা হয়েছে!', ToastAndroid.SHORT);
+                      this.setState({ love: true })
+                });
+            }
+            console.log("afte set data", newData)
+        });
+
+    }
 
     _shareMessage() {
         Share.share({
@@ -121,15 +111,14 @@ this.checkFav()
         return (
 
             <View style={{ flex: 1, backgroundColor: this.state.bgColor, }}>
-                <View style={{ flexDirection: 'row' }}>
-{console.log("ki??",state)}
-                <TouchableOpacity onPress={state.params.setLove} style={{padding:20}} >
-                 <Ionicons name={state.params.icon ? "md-heart" : "md-heart-outline"} size={35} color={state.params.icon ? "#ff316b" : "#D4FCEA"} />
-            </TouchableOpacity>
-                <TouchableOpacity onPress={state.params.share} style={{ padding: 20 }}>
-                    <Ionicons name="md-share-alt" size={35} color="#FFFFFF" />
-                </TouchableOpacity>
-            </View>
+                <View style={{ flexDirection: 'row', backgroundColor: "#12CC7B" }}>
+                    <TouchableOpacity onPress={this._setLove} style={{ padding: 20 }} >
+                        <Ionicons name={this.state.love ? "md-heart" : "md-heart-outline"} size={35} color={this.state.love ? "#ff316b" : "#D4FCEA"} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this._shareMessage} style={{ padding: 20 }}>
+                        <Ionicons name="md-share-alt" size={35} color="#FFFFFF" />
+                    </TouchableOpacity>
+                </View>
                 <View style={{ flex: .85 }}>
                     <View style={{ alignItems: 'center' }}>
 
