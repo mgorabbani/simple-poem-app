@@ -54,8 +54,7 @@ this.checkFav()
             });
             console.log("Koto??",newData.length)
             if(newData.length>0) {
-                this.props.navigation.setParams({love:true})
-                this.props.screenProps.onLovePress(true)
+                this.props.navigation.setParams({icon: !state.params.icon})
             }
             
         });
@@ -65,10 +64,15 @@ this.checkFav()
     _setLove() {
         console.log("problem!")
         v = true;
-
         AsyncStorage.getItem('kobitaDB').then((data) => {
             newData = JSON.parse(data)
-            if (v) {
+            a = newData.filter(function (el) {
+                    return el.title == this.props.navigation.state.params.title;
+                });
+                if(a.length>0) {
+                     this.props.navigation.setParams({icon: !this.props.navigation.state.params.icon})
+                }
+           if(a.length<0) {
                 let ds = {
                     title: this.props.navigation.state.params.title,
                     body: this.props.navigation.state.params.body
@@ -77,11 +81,7 @@ this.checkFav()
                 AsyncStorage.setItem('kobitaDB', JSON.stringify(newData), () => {
                     ToastAndroid.show('কবিতা প্রিয়তে রাখা হয়েছে!', ToastAndroid.SHORT);
                 });
-            } else {
-                newData = arr.filter(function (el) {
-                    return el.url !== "link 2";
-                });
-            }
+            } 
             console.log("afte set data", newData)
         });
 
@@ -93,15 +93,6 @@ this.checkFav()
     static navigationOptions = {
         
         header: ({ state, setParams }) => ({
-            right: (<View style={{ flexDirection: 'row' }}>
-{console.log("ki??",state)}
-                <TouchableOpacity onPress={state.params.setLove} style={{ paddingTop: 14 }} >
-                        <MaterialIcons name="delete" size={35} color= {state.params.love ? "#000" :"#FFFFFF" }/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={state.params.share} style={{ padding: 20 }}>
-                    <Ionicons name="md-share-alt" size={35} color="#FFFFFF" />
-                </TouchableOpacity>
-            </View>),
             style: {
                 backgroundColor: '#12CC7B',
             },
@@ -130,6 +121,15 @@ this.checkFav()
         return (
 
             <View style={{ flex: 1, backgroundColor: this.state.bgColor, }}>
+                <View style={{ flexDirection: 'row' }}>
+{console.log("ki??",state)}
+                <TouchableOpacity onPress={state.params.setLove} style={{padding:20}} >
+                 <Ionicons name={state.params.icon ? "md-heart" : "md-heart-outline"} size={35} color={state.params.icon ? "#ff316b" : "#D4FCEA"} />
+            </TouchableOpacity>
+                <TouchableOpacity onPress={state.params.share} style={{ padding: 20 }}>
+                    <Ionicons name="md-share-alt" size={35} color="#FFFFFF" />
+                </TouchableOpacity>
+            </View>
                 <View style={{ flex: .85 }}>
                     <View style={{ alignItems: 'center' }}>
 
