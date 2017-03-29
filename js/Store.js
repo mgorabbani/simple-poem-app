@@ -14,8 +14,8 @@ class Store {
     changeFontSize (size) {
         this.size = size;
   }
-  onLovePress() {
-    this.love = !this.love;
+  onLovePress(bool) {
+    this.love = bool;
   }
 
 

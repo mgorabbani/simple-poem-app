@@ -29,7 +29,6 @@ export default class List extends React.Component {
 
 
   render() {
-{console.log("List:",this.state.dataSource)}
     return (
       <View style={styles.container}>
         <View style={{alignItems:'center',backgroundColor:"#12CC7B",padding:10}}>

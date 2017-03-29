@@ -8,7 +8,7 @@ import poems from './Poems'
 import { observer } from 'mobx-react/native'
 
 // import Share, { ShareSheet, Button } from 'react-native-share';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons,MaterialIcons } from '@expo/vector-icons';
 
 @observer
 export default class Single extends React.Component {
@@ -16,9 +16,9 @@ export default class Single extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            love: true,
             color: !this.props.screenProps.nightMode ? '#282C34' : '#9C9C9E',
             bgColor: this.props.screenProps.nightMode ? '#282C34' : '#fff',
+            love : this.props.screenProps.love,
             height: 250,
             size: Number(this.props.screenProps.size),
             visible: false,
@@ -35,19 +35,37 @@ export default class Single extends React.Component {
 
 
 
+
     }
 
 
 
     componentDidMount() {
         this.props.navigation.setParams({ share: this._shareMessage, setLove: this._setLove });
+this.checkFav()
 
     }
+        checkFav() {
+        that = this;
+        AsyncStorage.getItem('kobitaDB').then((data) => {
+            d = JSON.parse(data)
+            newData = d.filter(function (el) {
+                return el.title == that.props.navigation.state.params.title;
+            });
+            console.log("Koto??",newData.length)
+            if(newData.length>0) {
+                this.props.navigation.setParams({love:true})
+                this.props.screenProps.onLovePress(true)
+            }
+            
+        });
+
+        }
 
     _setLove() {
-console.log("problem!")
+        console.log("problem!")
         v = true;
-        
+
         AsyncStorage.getItem('kobitaDB').then((data) => {
             newData = JSON.parse(data)
             if (v) {
@@ -73,18 +91,12 @@ console.log("problem!")
 
     }
     static navigationOptions = {
+        
         header: ({ state, setParams }) => ({
             right: (<View style={{ flexDirection: 'row' }}>
-
+{console.log("ki??",state)}
                 <TouchableOpacity onPress={state.params.setLove} style={{ paddingTop: 14 }} >
-                    <Animation
-                        style={{
-                            width: 50,
-                            height: 50,
-                        }}
-                        source={require('../assets/save.json')}
-                        progress={state.progress}
-                    />
+                        <MaterialIcons name="delete" size={35} color= {state.params.love ? "#000" :"#FFFFFF" }/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={state.params.share} style={{ padding: 20 }}>
                     <Ionicons name="md-share-alt" size={35} color="#FFFFFF" />

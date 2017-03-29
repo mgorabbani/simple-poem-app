@@ -17,6 +17,7 @@ export default class List extends React.Component {
     this.state = {
       counter: 1,
       fontLoaded: false,
+      isFav : false,
     };
 
   }
@@ -43,7 +44,12 @@ export default class List extends React.Component {
 
     await AsyncStorage.getItem('kobitaDB').then((data) => {
        newData = JSON.parse(data)
-      this.setState({dataSource: ds.cloneWithRows(newData)})
+        console.log("dataaa:",newData.length)
+        if (0 < newData.length) { 
+         
+          this.setState({dataSource: ds.cloneWithRows(newData),isFav:true})
+        }
+       
     });
 
 this.setState({ fontLoaded: true });
@@ -52,7 +58,7 @@ this.setState({ fontLoaded: true });
 
 
   render() {
- {console.log("fav:",this.state.dataSource)}
+
     
     return (
      
@@ -66,12 +72,12 @@ this.setState({ fontLoaded: true });
           }
         </View>
  { 
-            this.state.dataSource ? (
+            this.state.isFav ? (
         <ListView
             dataSource={this.state.dataSource}
             renderRow={(rowData) => this._renderScene(rowData)}
           />
-             ) : null
+             ) : (<Text> No Favourite Items Found! </Text>)
 
           }
       </View>
